@@ -1,11 +1,18 @@
 import cv2
-
+import os 
 # Load the face cascade for detection
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 
 # Load the trained recognizer
 recognizer = cv2.face.LBPHFaceRecognizer_create()
-recognizer.read("face_recognizer.yml")
+
+file_path = "C:/Users/samar/Desktop/face_rec/face_recognizer.yml"
+if not os.path.exists(file_path):
+    print(f"Error: {file_path} not found.")
+else:
+    recognizer.read(file_path)
+
+recognizer.read("C:/Users/samar/Desktop/face_rec/face_recognizer.yml")
 
 # Load the label map (you can save it to a file if needed)
 label_map = {0: "Samar"}  # For simplicity, assuming we only have one person, "Samar"
@@ -43,6 +50,9 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
+
+
 # Release and close
 cap.release()
 cv2.destroyAllWindows()
+
